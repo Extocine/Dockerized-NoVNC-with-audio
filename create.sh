@@ -333,5 +333,5 @@ chmod -x create.sh
 echo ""
 echo ">>> create.sh finished!"
 echo ">>> Next steps:"
-echo "    Change the vnc password by running  'x11vnc -storepasswd [YOUR PASSWORD] certs/passwd'
+echo "    Change the vnc password by running  'x11vnc -storepasswd [YOUR PASSWORD] certs/passwd'"
 echo "    ./start.sh"
