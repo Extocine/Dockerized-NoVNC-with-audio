@@ -10,7 +10,7 @@ A lil project of mine to make a remote-access workflow utilizing:
 
 Docker is used to:
 - Run nginx as the reverse proxy, and ensures the only 'public' service is nginx itself on port 443. The actual HTML files is pulled from [noVNC](https://github.com/novnc/noVNC.git) upon running `create.sh` 
-- Run two instances of websockify, one to interact with `x11vnc` <sub>*(port 5902)*</sub>, and one to interact with `ffmpeg` <sub>*(port 5903)*</sub>
+- Run two instances of websockify, one to interact with `x11vnc` <sub>*(port 5902)*</sub>, and one to interact with `ffmpeg` <sub>*(port 5904)*</sub>
 - Run the `ffmpeg` audio stream on port 5903
 
 ---
@@ -25,6 +25,13 @@ chmod +x create.sh
 ```
 or download the repository, naviage to the folder, and run `chmod +x create.sh && ./create.sh`
 
+Then run
+```bash 
+x11vnc -storepasswd YOUR_STRONG_PASSWORD certs/passwd
+```
+
+PLEASE DO THIS BECAUSE THE DEFAULT PASSWORD IS JUST 'PASSWORD'
+
 ---
 ## Running:
 To start, just naviate to the folder and run `./start.sh`
@@ -32,9 +39,18 @@ To start, just naviate to the folder and run `./start.sh`
 To stop, just run `./stop.sh`
 
 ---
+## Security Notes 🔐:
+- Only port **443** is exposed to the network.
+- x11vnc, ffmpeg, and both websockify instances are bound to `127.0.0.1` only.
+- The VNC password default is `password` — **change it immediately**:
+  ```bash
+  x11vnc -storepasswd YOUR_STRONG_PASSWORD certs/passwd
+  ```
+- The audio WebSocket currently has no authentication. Anyone who can reach port 443 can listen to your system audio.
+
+---
 ## Known Quirks 🪲:
 
-- The SSL Certificates generated *are* self-signed, so expect a warning from the browser. Everything is still secure and encrypted, but since there is no trusted authority doing the cert, it gives a warning
-~~-  The audio stream outputs whatever the *input* of the host system is *(It plays your microphone)*, so you might want to set your input to the 'Monitor' of your default output. An easy to use GUI program to do this is `pavucontrol`.~~
-- The audio stream requires no authentication, meaning anyone can listen to the audio output without a password.
+- The SSL Certificates generated *are* self-signed, so expect a warning from the browser. Everything is still secure and encrypted, but since there is no trusted authority doing the cert, it the browser will complain
+- ~~The audio stream outputs whatever the *input* of the host system is *(It plays your microphone)*, so you might want to set your input to the 'Monitor' of your default output. An easy to use GUI program to do this is `pavucontrol`.~~
 - This project is partially vibe-coded, so take that for what its worth xD
