@@ -36,4 +36,5 @@ To stop, just run `./stop.sh`
 
 - The SSL Certificates generated *are* self-signed, so expect a warning from the browser. Everything is still secure and encrypted, but since there is no trusted authority doing the cert, it gives a warning
 ~~-  The audio stream outputs whatever the *input* of the host system is *(It plays your microphone)*, so you might want to set your input to the 'Monitor' of your default output. An easy to use GUI program to do this is `pavucontrol`.~~
--  This project is partially vibe-coded, so take that for what its worth xD
+- The audio stream requires no authentication, meaning anyone can listen to the audio output without a password.
+- This project is partially vibe-coded, so take that for what its worth xD
